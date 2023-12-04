@@ -3,6 +3,7 @@
 import { TASKS } from "@/constants/tasks";
 import { ChangeEvent, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
+import { BaseButton } from "@/components/ui/base/BaseButton";
 
 const HomePage = () => {
   const [tasks, setTasks] = useState(TASKS);
@@ -53,21 +54,21 @@ const HomePage = () => {
                 onChange={() => handleCheck(idx)}
               />
               <label htmlFor={`checkbox${idx}`}>{task.name}</label>
-              <button
-                className="ml-auto flex h-[24px] w-[24px] cursor-pointer items-center justify-center rounded-full bg-white text-[10px]"
+              <BaseButton
+                className="ml-auto h-[24px] w-[24px] rounded-full bg-white text-[10px]"
                 type="button"
                 onClick={() => deleteTask(idx)}
               >
                 X
-              </button>
+              </BaseButton>
             </li>
           ))}
         </ul>
         <Dialog.Root>
           <Dialog.Trigger asChild>
-            <button className="absolute bottom-[16px] right-[16px] h-[64px] w-[64px] rounded-full border-[2px] border-black bg-green-400">
+            <BaseButton className="absolute bottom-[16px] right-[16px] h-[64px] w-[64px] rounded-full border-[2px] border-black bg-green-400">
               +
-            </button>
+            </BaseButton>
           </Dialog.Trigger>
           <Dialog.Portal>
             <Dialog.Overlay className="fixed inset-0 m-auto bg-black/20" />
@@ -89,18 +90,18 @@ const HomePage = () => {
               )}
               <div className="absolute bottom-[16px] right-[16px] flex space-x-[16px]">
                 <Dialog.Close asChild>
-                  <button
-                    className="flex h-[40px] items-center justify-center rounded-[4px] bg-green-500 px-[12px] text-white focus:outline-none"
+                  <BaseButton
+                    className="h-[40px] rounded-[4px] bg-green-500 px-[12px] text-white focus:outline-none"
                     onClick={addTask}
                     disabled={taskDescription === ""}
                   >
                     保存
-                  </button>
+                  </BaseButton>
                 </Dialog.Close>
                 <Dialog.Close asChild>
-                  <button className="flex h-[40px] items-center justify-center rounded-[4px] bg-slate-400 px-[12px] text-white focus:outline-none">
+                  <BaseButton className="h-[40px] rounded-[4px] bg-slate-400 px-[12px] text-white focus:outline-none">
                     キャンセル
-                  </button>
+                  </BaseButton>
                 </Dialog.Close>
               </div>
             </Dialog.Content>
