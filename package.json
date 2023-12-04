@@ -10,6 +10,7 @@
     "format:prettier": "prettier --write './**/*.{ts,tsx,js,jsx,json}'"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.0.5",
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18"
