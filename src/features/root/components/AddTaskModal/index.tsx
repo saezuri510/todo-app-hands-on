@@ -1,32 +1,25 @@
-"use client";
-
 import * as Dialog from "@radix-ui/react-dialog";
 import { BaseButton } from "@/components/ui/base/BaseButton";
-import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
-import { Task } from "@/types/Task";
+import { ChangeEvent, useState } from "react";
 
-type Props = {
-  setTasks: Dispatch<SetStateAction<Task[]>>;
-};
-
-export const AddTaskModal = ({ setTasks }: Props) => {
+export const AddTaskModal = () => {
   const [taskDescription, setTaskDescription] = useState("");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTaskDescription(e.target.value);
   };
 
-  const addTask = () => {
-    if (taskDescription) {
-      setTasks((prev) => [
-        ...prev,
-        {
-          name: taskDescription,
-          isCompleted: false,
-        },
-      ]);
-    }
-  };
+  // const addTask = () => {
+  //   if (taskDescription) {
+  //     setTasks((prev) => [
+  //       ...prev,
+  //       {
+  //         name: taskDescription,
+  //         isCompleted: false,
+  //       },
+  //     ]);
+  //   }
+  // };
 
   return (
     <Dialog.Root>
@@ -57,7 +50,7 @@ export const AddTaskModal = ({ setTasks }: Props) => {
             <Dialog.Close asChild>
               <BaseButton
                 className="h-[40px] rounded-[4px] bg-green-500 px-[12px] text-white focus:outline-none"
-                onClick={addTask}
+                // onClick={addTask}
                 disabled={taskDescription === ""}
               >
                 保存
