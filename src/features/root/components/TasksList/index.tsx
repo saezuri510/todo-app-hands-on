@@ -23,9 +23,16 @@ export const TasksList = ({ tasks, setTasks }: Props) => {
     );
   };
 
-  // const deleteTask = (index: number) => {
-  //   setTasks((prev) => prev.filter((_task, i) => i !== index));
-  // };
+  const deleteTask = async ({ id }: Task) => {
+    const deletedTask: Task = await fetcher(
+      `http://localhost:3000/api/tasks/${id}`,
+      {
+        method: "DELETE",
+      },
+    );
+
+    setTasks((prev) => prev.filter((task) => task.id !== deletedTask.id));
+  };
 
   return (
     <ul className="space-y-[8px] p-[16px]">
@@ -42,7 +49,7 @@ export const TasksList = ({ tasks, setTasks }: Props) => {
           <BaseButton
             className="ml-auto h-[24px] w-[24px] rounded-full bg-white text-[10px]"
             type="button"
-            // onClick={() => deleteTask(idx)}
+            onClick={() => deleteTask(task)}
           >
             X
           </BaseButton>
