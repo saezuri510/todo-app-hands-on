@@ -1,4 +1,5 @@
-import { Task } from "@prisma/client";
+import { Task } from "@/types/Task";
+import { fetcher } from "@/utils/fetcher";
 import { GetServerSideProps } from "next";
 
 export type Props = {
@@ -8,7 +9,7 @@ export type Props = {
 export const getServerSideProps: GetServerSideProps<Props> = async (
   _context,
 ) => {
-  const res = await fetch("http://localhost:3000/api/tasks");
+  const res = await fetcher("http://localhost:3000/api/tasks");
   const tasks = await res.json();
 
   return { props: { tasks } };
