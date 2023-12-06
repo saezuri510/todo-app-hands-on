@@ -1,17 +1,26 @@
 import { BaseButton } from "@/components/ui/base/BaseButton";
 import { Task } from "@/types/Task";
 import { fetcher } from "@/utils/fetcher";
+import { Dispatch, SetStateAction } from "react";
 
 type Props = {
   tasks: Task[];
+  setTasks: Dispatch<SetStateAction<Task[]>>;
 };
 
-export const TasksList = ({ tasks }: Props) => {
-  const handleCheck = ({ id, completedAt }: Task) => {
-    fetcher(`http://localhost:3000/api/tasks/${id}`, {
-      method: "PUT",
-      body: { isCompleted: completedAt === null },
-    });
+export const TasksList = ({ tasks, setTasks }: Props) => {
+  const handleCheck = async ({ id, completedAt }: Task) => {
+    const updatedTask: Task = await fetcher(
+      `http://localhost:3000/api/tasks/${id}`,
+      {
+        method: "PUT",
+        body: { isCompleted: completedAt === null },
+      },
+    );
+
+    setTasks((prev) =>
+      prev.map((task) => (task.id === updatedTask.id ? updatedTask : task)),
+    );
   };
 
   // const deleteTask = (index: number) => {

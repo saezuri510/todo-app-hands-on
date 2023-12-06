@@ -2,11 +2,11 @@ type Init<T> = Omit<RequestInit, "body"> & {
   body?: T;
 };
 
-export const fetcher = <T extends object>(
+export const fetcher = async <T extends object>(
   input: RequestInfo | URL,
   { body, headers, ...restInit }: Init<T> = {},
 ) => {
-  return fetch(input, {
+  const res = await fetch(input, {
     ...restInit,
     headers: {
       "Content-Type": "application/json",
@@ -14,4 +14,8 @@ export const fetcher = <T extends object>(
     },
     body: body ? JSON.stringify(body) : undefined,
   });
+
+  const data = await res.json();
+
+  return data;
 };

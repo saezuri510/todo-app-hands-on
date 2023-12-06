@@ -9,8 +9,7 @@ export type Props = {
 export const getServerSideProps: GetServerSideProps<Props> = async (
   _context,
 ) => {
-  const res = await fetcher("http://localhost:3000/api/tasks");
-  const tasks = await res.json();
+  const tasks = await fetcher("http://localhost:3000/api/tasks");
 
   return { props: { tasks } };
 };
