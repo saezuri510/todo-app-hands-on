@@ -12,7 +12,7 @@ export const fetcher = async <T extends object>(
       "Content-Type": "application/json",
       ...headers,
     },
-    body: body ? JSON.stringify(body) : undefined,
+    body: body && JSON.stringify(body),
   });
 
   const data = await res.json();
