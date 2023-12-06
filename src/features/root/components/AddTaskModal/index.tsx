@@ -1,25 +1,33 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { BaseButton } from "@/components/ui/base/BaseButton";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import { fetcher } from "@/utils/fetcher";
+import { Task } from "@/types/Task";
 
-export const AddTaskModal = () => {
+type Props = {
+  setTasks: Dispatch<SetStateAction<Task[]>>;
+};
+
+export const AddTaskModal = ({ setTasks }: Props) => {
   const [taskDescription, setTaskDescription] = useState("");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTaskDescription(e.target.value);
   };
 
-  // const addTask = () => {
-  //   if (taskDescription) {
-  //     setTasks((prev) => [
-  //       ...prev,
-  //       {
-  //         name: taskDescription,
-  //         isCompleted: false,
-  //       },
-  //     ]);
-  //   }
-  // };
+  const addTask = async () => {
+    if (taskDescription) {
+      const createdTask: Task = await fetcher(
+        `http://localhost:3000/api/tasks/create`,
+        {
+          method: "POST",
+          body: { name: taskDescription },
+        },
+      );
+
+      setTasks((prev) => [...prev, createdTask]);
+    }
+  };
 
   return (
     <Dialog.Root>
@@ -50,7 +58,7 @@ export const AddTaskModal = () => {
             <Dialog.Close asChild>
               <BaseButton
                 className="h-[40px] rounded-[4px] bg-green-500 px-[12px] text-white focus:outline-none"
-                // onClick={addTask}
+                onClick={addTask}
                 disabled={taskDescription === ""}
               >
                 保存

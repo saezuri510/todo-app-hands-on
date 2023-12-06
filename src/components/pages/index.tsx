@@ -13,7 +13,7 @@ export const HomePage = ({ tasks: initialTasks }: Props) => {
           TODO List
         </header>
         <TasksList tasks={tasks} setTasks={setTasks} />
-        <AddTaskModal />
+        <AddTaskModal setTasks={setTasks} />
       </div>
     </div>
   );
