@@ -48,7 +48,6 @@ export const TasksList = ({ tasks, setTasks }: Props) => {
           <label htmlFor={`checkbox-${task.id}`}>{task.name}</label>
           <BaseButton
             className="ml-auto h-[24px] w-[24px] rounded-full bg-white text-[10px]"
-            type="button"
             onClick={() => deleteTask(task)}
           >
             X
