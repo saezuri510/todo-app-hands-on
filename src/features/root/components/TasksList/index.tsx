@@ -11,7 +11,7 @@ type Props = {
 export const TasksList = ({ tasks, setTasks }: Props) => {
   const handleCheck = async ({ id, completedAt }: Task) => {
     const updatedTask: Task = await fetcher(
-      `http://localhost:3000/api/tasks/${id}`,
+      `http://localhost:3000/api/task/${id}`,
       {
         method: "PUT",
         body: { isCompleted: completedAt === null },
@@ -25,7 +25,7 @@ export const TasksList = ({ tasks, setTasks }: Props) => {
 
   const deleteTask = async ({ id }: Task) => {
     const deletedTask: Task = await fetcher(
-      `http://localhost:3000/api/tasks/${id}`,
+      `http://localhost:3000/api/task/${id}`,
       {
         method: "DELETE",
       },

@@ -18,7 +18,7 @@ export const AddTaskModal = ({ setTasks }: Props) => {
   const addTask = async () => {
     if (taskDescription) {
       const createdTask: Task = await fetcher(
-        `http://localhost:3000/api/tasks/create`,
+        `http://localhost:3000/api/task/create`,
         {
           method: "POST",
           body: { name: taskDescription },
