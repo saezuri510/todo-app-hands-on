@@ -1,21 +1,20 @@
-import * as Dialog from "@radix-ui/react-dialog";
-import { BaseButton } from "@/components/ui/base/BaseButton";
-import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
-import { fetcher } from "@/utils/fetcher";
 import { Task } from "@/types/Task";
+import { fetcher } from "@/utils/fetcher";
+import * as Dialog from "@radix-ui/react-dialog";
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 
 type Props = {
   setTasks: Dispatch<SetStateAction<Task[]>>;
 };
 
-export const AddTaskModal = ({ setTasks }: Props) => {
+export const AddTaskModal = ({ setTasks }: Props): JSX.Element => {
   const [taskDescription, setTaskDescription] = useState("");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTaskDescription(e.target.value);
   };
 
-  const addTask = async () => {
+  const handleClick = async () => {
     if (taskDescription) {
       const createdTask: Task = await fetcher(
         `http://localhost:3000/api/task/create`,
@@ -32,9 +31,12 @@ export const AddTaskModal = ({ setTasks }: Props) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <BaseButton className="absolute bottom-[16px] right-[16px] h-[64px] w-[64px] rounded-full border-[2px] border-black bg-green-400">
+        <button
+          type="button"
+          className="absolute bottom-[16px] right-[16px] flex h-[64px] w-[64px] cursor-pointer items-center justify-center rounded-full border-[2px] border-black bg-green-400"
+        >
           +
-        </BaseButton>
+        </button>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 m-auto bg-black/20" />
@@ -56,18 +58,22 @@ export const AddTaskModal = ({ setTasks }: Props) => {
           )}
           <div className="absolute bottom-[16px] right-[16px] flex space-x-[16px]">
             <Dialog.Close asChild>
-              <BaseButton
-                className="h-[40px] rounded-[4px] bg-green-500 px-[12px] text-white focus:outline-none"
-                onClick={addTask}
+              <button
+                type="button"
+                className="flex h-[40px] cursor-pointer items-center justify-center rounded-[4px] bg-green-500 px-[12px] text-white focus:outline-none"
+                onClick={handleClick}
                 disabled={taskDescription === ""}
               >
                 保存
-              </BaseButton>
+              </button>
             </Dialog.Close>
             <Dialog.Close asChild>
-              <BaseButton className="h-[40px] rounded-[4px] bg-slate-400 px-[12px] text-white focus:outline-none">
+              <button
+                type="button"
+                className="flex h-[40px] cursor-pointer items-center justify-center rounded-[4px] bg-slate-400 px-[12px] text-white focus:outline-none"
+              >
                 キャンセル
-              </BaseButton>
+              </button>
             </Dialog.Close>
           </div>
         </Dialog.Content>

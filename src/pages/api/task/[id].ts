@@ -10,29 +10,32 @@ const handler: NextApiHandler = async (req, res) => {
       return;
     }
 
-    if (req.method === "PUT") {
-      let completedAt = null;
+    switch (req.method) {
+      case "PUT":
+        let completedAt = null;
 
-      if (req.body.isCompleted) {
-        completedAt = new Date();
-      }
+        if (req.body.isCompleted) {
+          completedAt = new Date();
+        }
 
-      const updatedTask = await prisma.task.update({
-        where: { id: taskId },
-        data: {
-          completedAt,
-        },
-      });
+        const updatedTask = await prisma.task.update({
+          where: { id: taskId },
+          data: {
+            completedAt,
+          },
+        });
 
-      res.status(200).send(updatedTask);
-    } else if (req.method === "DELETE") {
-      const deletedTask = await prisma.task.delete({
-        where: { id: taskId },
-      });
+        res.status(200).send(updatedTask);
+        break;
+      case "DELETE":
+        const deletedTask = await prisma.task.delete({
+          where: { id: taskId },
+        });
 
-      res.status(200).send(deletedTask);
-    } else {
-      res.status(405).send({ error: "Method not allowed" });
+        res.status(200).send(deletedTask);
+        break;
+      default:
+        res.status(405).send({ error: "Method not allowed" });
     }
   } catch (e) {
     if (e instanceof Error) {

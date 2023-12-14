@@ -2,11 +2,13 @@ import { Task } from "@/types/Task";
 
 export const TASKS: Task[] = [
   {
+    id: "1",
     name: "test",
-    isCompleted: false,
+    completedAt: null,
   },
   {
+    id: "2",
     name: "サンプルTODO",
-    isCompleted: false,
+    completedAt: new Date(),
   },
 ];
